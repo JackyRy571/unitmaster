@@ -1,0 +1,302 @@
+```html id="z7m91x"
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>UnitMaster - Smart Unit & Engineering Converter</title>
+
+<meta name="description" content="Free online unit converter and construction calculator. Convert units instantly and calculate engineering needs easily.">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#0f172a;
+    color:white;
+    min-height:100vh;
+}
+
+header{
+    padding:30px;
+    text-align:center;
+    background:#111827;
+    box-shadow:0 2px 10px rgba(0,0,0,0.3);
+}
+
+header h1{
+    font-size:48px;
+    color:#00ff99;
+}
+
+header p{
+    color:#cbd5e1;
+    margin-top:10px;
+}
+
+.container{
+    max-width:1000px;
+    margin:auto;
+    padding:30px 20px;
+}
+
+.card{
+    background:#1e293b;
+    padding:25px;
+    border-radius:20px;
+    margin-bottom:30px;
+}
+
+.card h2{
+    margin-bottom:20px;
+    color:#00ff99;
+}
+
+input, select{
+    width:100%;
+    padding:14px;
+    margin-top:10px;
+    border:none;
+    border-radius:10px;
+    background:#334155;
+    color:white;
+    font-size:16px;
+}
+
+button{
+    width:100%;
+    padding:14px;
+    margin-top:20px;
+    border:none;
+    border-radius:10px;
+    background:#00ff99;
+    color:black;
+    font-size:18px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    opacity:0.9;
+}
+
+.result{
+    margin-top:20px;
+    padding:15px;
+    background:#334155;
+    border-radius:10px;
+    font-size:18px;
+}
+
+.grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+    gap:20px;
+}
+
+footer{
+    text-align:center;
+    padding:30px;
+    color:#94a3b8;
+}
+
+</style>
+</head>
+
+<body>
+
+<header>
+<h1>⚡ UnitMaster</h1>
+<p>Smart Unit Converter & Construction Calculator</p>
+</header>
+
+<div class="container">
+
+<div class="grid">
+
+<!-- UNIT CONVERTER -->
+
+<div class="card">
+<h2>📏 Unit Converter</h2>
+
+<input type="number" id="value" placeholder="Enter value">
+
+<select id="conversion">
+
+<option value="meterfeet">Meter → Feet</option>
+<option value="feettometer">Feet → Meter</option>
+
+<option value="kglbs">KG → Pound</option>
+<option value="lbstokg">Pound → KG</option>
+
+<option value="cftof">Celsius → Fahrenheit</option>
+<option value="ftoc">Fahrenheit → Celsius</option>
+
+<option value="hptowatt">HP → Watt</option>
+<option value="watttohp">Watt → HP</option>
+
+</select>
+
+<button onclick="convertUnit()">
+Convert
+</button>
+
+<div class="result" id="unitResult">
+Result will appear here
+</div>
+
+</div>
+
+<!-- BESI CALCULATOR -->
+
+<div class="card">
+
+<h2>🏗️ Construction Calculator</h2>
+
+<input type="number" id="length" placeholder="Building Length (meter)">
+
+<input type="number" id="width" placeholder="Building Width (meter)">
+
+<button onclick="calculateSteel()">
+Calculate Steel Requirement
+</button>
+
+<div class="result" id="steelResult">
+Steel estimation will appear here
+</div>
+
+</div>
+
+</div>
+
+<!-- INFO SECTION -->
+
+<div class="card">
+
+<h2>📘 About UnitMaster</h2>
+
+<p>
+UnitMaster is a free online converter and engineering calculator designed for students, engineers, builders, creators, and everyday users.
+</p>
+
+<br>
+
+<p>
+Features include:
+</p>
+
+<ul style="margin-top:15px; padding-left:20px; line-height:2; color:#cbd5e1;">
+<li>Unit Conversion</li>
+<li>Construction Calculators</li>
+<li>Engineering Utilities</li>
+<li>Instant Results</li>
+<li>Mobile Friendly Design</li>
+</ul>
+
+</div>
+
+</div>
+
+<footer>
+© 2026 UnitMaster — Smart Engineering Tools
+</footer>
+
+<script>
+
+function convertUnit(){
+
+let value = parseFloat(document.getElementById("value").value);
+
+let type = document.getElementById("conversion").value;
+
+let result = "";
+
+if(isNaN(value)){
+    result = "Please enter a valid number.";
+}
+else{
+
+switch(type){
+
+case "meterfeet":
+result = value * 3.28084 + " feet";
+break;
+
+case "feettometer":
+result = value / 3.28084 + " meter";
+break;
+
+case "kglbs":
+result = value * 2.20462 + " lbs";
+break;
+
+case "lbstokg":
+result = value / 2.20462 + " kg";
+break;
+
+case "cftof":
+result = (value * 9/5) + 32 + " °F";
+break;
+
+case "ftoc":
+result = (value - 32) * 5/9 + " °C";
+break;
+
+case "hptowatt":
+result = value * 745.7 + " watt";
+break;
+
+case "watttohp":
+result = value / 745.7 + " HP";
+break;
+
+}
+
+}
+
+document.getElementById("unitResult").innerHTML = result;
+
+}
+
+function calculateSteel(){
+
+let length = parseFloat(document.getElementById("length").value);
+
+let width = parseFloat(document.getElementById("width").value);
+
+if(isNaN(length) || isNaN(width)){
+
+document.getElementById("steelResult").innerHTML =
+"Please enter valid dimensions.";
+
+return;
+
+}
+
+let area = length * width;
+
+let steel = area * 7;
+
+document.getElementById("steelResult").innerHTML =
+
+"Estimated steel requirement: <b>" +
+steel.toFixed(2) +
+" kg</b>";
+
+}
+
+</script>
+
+</body>
+</html>
+```
+
+
+
